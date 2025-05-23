@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: yourStrongRootPW!  # sets root’s password
-      MYSQL_DATABASE:     app_database         # auto-create this DB
+      MYSQL_DATABASE:     camshield-databases         # auto-create this DB
     ports:
       - "3307:3306"
     volumes:

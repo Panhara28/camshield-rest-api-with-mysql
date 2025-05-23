@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import { IsPasswordPolicy } from './validators/password-policy.validation';
 
 @Module({
-  imports: [UsersModule],
+  imports: [
+    UsersModule,
+    AuthModule,
+    PrismaModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+  ],
   controllers: [],
-  providers: [UsersService],
+  providers: [IsPasswordPolicy],
 })
 export class AppModule {}

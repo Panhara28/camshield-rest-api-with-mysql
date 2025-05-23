@@ -23,6 +23,8 @@ model User {
   role      Role     @relation(fields: [roleId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
 model Role {
@@ -32,6 +34,8 @@ model Role {
   permissions RolePermission[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+
+  @@map("roles")
 }
 
 model Permission {
@@ -41,6 +45,8 @@ model Permission {
   roles       RolePermission[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+
+  @@map("permissions")
 }
 
 model RolePermission {
@@ -52,4 +58,5 @@ model RolePermission {
   updatedAt    DateTime   @updatedAt
 
   @@id([roleId, permissionId])
+  @@map("role_permissions")
 }
