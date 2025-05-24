@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { IsPasswordPolicy } from './validators/password-policy.validation';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -12,6 +13,14 @@ import { IsPasswordPolicy } from './validators/password-policy.validation';
     PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
     }),
   ],
   controllers: [],
