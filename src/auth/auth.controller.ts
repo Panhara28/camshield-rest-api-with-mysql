@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthPayloadDto } from './dto';
-import { User } from 'generated/prisma';
+import { User } from '@prisma/client';
 import { GetMe } from 'src/decorators/get-me';
 import { JwtGuard } from 'src/guard';
 

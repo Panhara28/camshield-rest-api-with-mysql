@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, Validate } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Validate,
+} from 'class-validator';
 import { IsPasswordPolicy } from 'src/validators/password-policy.validation';
 
 export class UserPayloadDto {
@@ -16,4 +22,10 @@ export class UserPayloadDto {
 
   @IsNotEmpty()
   roleId: number;
+}
+
+export class UpdateUserPayloadDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
 }

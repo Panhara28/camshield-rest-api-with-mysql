@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { UserPayloadDto } from './dto';
+import { UpdateUserPayloadDto, UserPayloadDto } from './dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon from 'argon2';
-import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
+import { UserInterface } from 'src/interfaces/users/user-interfaces';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +24,7 @@ export class UsersService {
           name,
           password: hashPassword,
           roleId: Number(roleId),
+          slug: uuidv4(),
         },
       });
 
@@ -36,5 +42,98 @@ export class UsersService {
         }
       }
     }
+  }
+
+  async userList({ filter, pagination }: UserInterface) {
+    const { limit = 10, page = 1 } = pagination;
+    const { email, name, roleId } = filter;
+
+    const where: any = {};
+
+    if (email) {
+      where.email = { contains: email };
+    }
+
+    if (name) {
+      where.name = { contains: name };
+    }
+
+    if (roleId) {
+      where.roleId = roleId;
+    }
+
+    const [users, total] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        where,
+        skip: (page - 1) * limit,
+        take: limit,
+        include: {
+          role: true,
+        },
+        orderBy: {
+          id: 'desc',
+        },
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    const sanitizedUsers = users.map(({ password, ...rest }) => rest);
+
+    return {
+      data: sanitizedUsers,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
+
+  async userDetail(params: { slug: string }) {
+    const { slug } = params;
+    const user = await this.prisma.user.findUnique({
+      where: {
+        slug,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        slug: true,
+        updatedAt: true,
+        createdAt: true,
+      },
+    });
+
+    return user;
+  }
+
+  async updateUser(payload: UpdateUserPayloadDto, params: { slug: string }) {
+    const { slug } = params;
+
+    const existingUser = await this.prisma.user.findUnique({ where: { slug } });
+
+    if (!existingUser) {
+      throw new ForbiddenException(`User not found`);
+    }
+
+    const updateUser = await this.prisma.user.update({
+      where: {
+        slug,
+      },
+      data: payload,
+      omit: {
+        password: true,
+      },
+    });
+
+    if (!updateUser) {
+      throw new ForbiddenException(`User not update succesfully`);
+    }
+    return {
+      message: 'Update Successfully',
+    };
   }
 }
