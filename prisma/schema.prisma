@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  password  String
-  roleId    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      Role     @relation(fields: [roleId], references: [id])
-  slug      String   @unique
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  name           String
+  password       String
+  roleId         Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  role           Role     @relation(fields: [roleId], references: [id])
+  slug           String   @unique
+  profilePicture String
 
   @@index([roleId], map: "users_roleId_fkey")
   @@map("users")

@@ -110,6 +110,37 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                             </li>
                             <li class="link">
+                                <a href="modules/UploadModule.html" data-type="entity-link" >UploadModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
+                                            'data-bs-target="#controllers-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' : 'data-bs-target="#xs-controllers-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' }>
+                                            <span class="icon ion-md-swap"></span>
+                                            <span>Controllers</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' :
+                                            'id="xs-controllers-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' }>
+                                            <li class="link">
+                                                <a href="controllers/UploadController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >UploadController</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
+                                        'data-bs-target="#injectables-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' : 'data-bs-target="#xs-injectables-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' }>
+                                        <span class="icon ion-md-arrow-round-down"></span>
+                                        <span>Injectables</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' :
+                                        'id="xs-injectables-links-module-UploadModule-118e7951e11226bda3ea3355140e59794d6001e2e07a8c85fa11f6ba45bd601615641319d6bf54b61d5a1ce5d849a314905e8a9a310ae94b16b2940e436e8aca"' }>
+                                        <li class="link">
+                                            <a href="injectables/UploadService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >UploadService</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/UsersModule.html" data-type="entity-link" >UsersModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
@@ -154,6 +185,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="controllers/AuthController.html" data-type="entity-link" >AuthController</a>
                                 </li>
                                 <li class="link">
+                                    <a href="controllers/UploadController.html" data-type="entity-link" >UploadController</a>
+                                </li>
+                                <li class="link">
                                     <a href="controllers/UsersController.html" data-type="entity-link" >UsersController</a>
                                 </li>
                             </ul>
@@ -176,6 +210,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/IsPasswordPolicy.html" data-type="entity-link" >IsPasswordPolicy</a>
                             </li>
                             <li class="link">
+                                <a href="classes/UpdateUserPayloadDto.html" data-type="entity-link" >UpdateUserPayloadDto</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/UserPayloadDto.html" data-type="entity-link" >UserPayloadDto</a>
                             </li>
                         </ul>
@@ -192,6 +229,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/AuthService.html" data-type="entity-link" >AuthService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/FileUploadInterceptor.html" data-type="entity-link" >FileUploadInterceptor</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/JwtGuard.html" data-type="entity-link" >JwtGuard</a>
                                 </li>
                                 <li class="link">
@@ -199,6 +239,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/PrismaService.html" data-type="entity-link" >PrismaService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/UploadService.html" data-type="entity-link" >UploadService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UsersService.html" data-type="entity-link" >UsersService</a>
@@ -226,6 +269,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <span class="icon ion-ios-arrow-down"></span>
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
+                            <li class="link">
+                                <a href="interfaces/PaginationParmas.html" data-type="entity-link" >PaginationParmas</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/UserFilterInterface.html" data-type="entity-link" >UserFilterInterface</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/UserInterface.html" data-type="entity-link" >UserInterface</a>
+                            </li>
                             <li class="link">
                                 <a href="interfaces/UserPayload.html" data-type="entity-link" >UserPayload</a>
                             </li>

@@ -79,187 +79,200 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content miscellaneous-variables">
+               <div class="content controller">
                    <div class="content-data">
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Miscellaneous</li>
-  <li class="breadcrumb-item">Variables</li>
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >UploadController</li>
 </ol>
 
-<section data-compodoc="block-index">
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/upload/upload.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>upload</code>
+            </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <ul class="index-list">
-                        <li>
-                            <a href="#DUMMY_PASSWORD" title="prisma/seed.ts" ><b>DUMMY_PASSWORD</b>&nbsp;&nbsp;&nbsp;(prisma/.../seed.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#GetMe" title="src/decorators/get-me/get-me.decorator.ts" ><b>GetMe</b>&nbsp;&nbsp;&nbsp;(src/.../get-me.decorator.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#HAS_PERMISSION_KEY" title="src/decorators/has-permission/has-permission.decorator.ts" ><b>HAS_PERMISSION_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../has-permission.decorator.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#HasPermission" title="src/decorators/has-permission/has-permission.decorator.ts" ><b>HasPermission</b>&nbsp;&nbsp;&nbsp;(src/.../has-permission.decorator.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#prisma" title="prisma/seed.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(prisma/.../seed.ts)</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                <a href="#uploadFile" >uploadFile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
         </tbody>
     </table>
 </section>
 
-    <h3>prisma/seed.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="DUMMY_PASSWORD"></a>
-                    <span class="name">
-                        <span ><b>DUMMY_PASSWORD</b></span>
-                        <a href="#DUMMY_PASSWORD"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;$argon2id$v&#x3D;19$m&#x3D;65536,t&#x3D;3,p&#x3D;4$oTfBlJjwFXLyr8hj8I8LrQ$7vd6LYWLfrzgXSaWiuwXFMkrH6O9t0Jlw+/f4WwyIlQ&#x27;</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="prisma"></a>
+                    <a name="uploadFile"></a>
                     <span class="name">
-                        <span ><b>prisma</b></span>
-                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                        <span ><b>uploadFile</b></span>
+                        <a href="#uploadFile"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>new PrismaClient()</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/decorators/get-me/get-me.decorator.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="GetMe"></a>
-                    <span class="name">
-                        <span ><b>GetMe</b></span>
-                        <a href="#GetMe"><span class="icon ion-ios-link"></span></a>
-                    </span>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFile(file: Express.Multer.File)</code>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createParamDecorator(
-  (data: unknown, ctx: ExecutionContext) &#x3D;&gt; {
-    const request: Express.Request &#x3D; ctx.switchToHttp().getRequest();
-    return request.user;
-  },
-)</code>
-                    </td>
-                </tr>
 
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/decorators/has-permission/has-permission.decorator.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="HAS_PERMISSION_KEY"></a>
-                    <span class="name">
-                        <span ><b>HAS_PERMISSION_KEY</b></span>
-                        <a href="#HAS_PERMISSION_KEY"><span class="icon ion-ios-link"></span></a>
-                    </span>
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@UseGuards(JwtGuard)<br />@Post(&#x27;file&#x27;)<br /></code>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;hasPermission&#x27;</code>
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="11"
+                                    class="link-to-prism">src/upload/upload.controller.ts:11</a></div>
+                        </td>
+                    </tr>
 
 
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="HasPermission"></a>
-                    <span class="name">
-                        <span ><b>HasPermission</b></span>
-                        <a href="#HasPermission"><span class="icon ion-ios-link"></span></a>
-                    </span>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>Express.Multer.File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>(permission: string) &#x3D;&gt;
-  SetMetadata(HAS_PERMISSION_KEY, permission)</code>
-                    </td>
-                </tr>
-
-
         </tbody>
     </table>
-</section>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Post, UseGuards, UploadedFile } from &#x27;@nestjs/common&#x27;;
+import { UploadService } from &#x27;./upload.service&#x27;;
+import { JwtGuard } from &#x27;src/guard&#x27;;
+
+@Controller(&#x27;upload&#x27;)
+export class UploadController {
+  constructor(private readonly uploadService: UploadService) {}
+
+  @UseGuards(JwtGuard)
+  @Post(&#x27;file&#x27;)
+  uploadFile(@UploadedFile() file: Express.Multer.File) {
+    return this.uploadService.uploadFile(file);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -288,8 +301,8 @@
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
-            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'UploadController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

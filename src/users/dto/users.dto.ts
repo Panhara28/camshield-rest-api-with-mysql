@@ -22,6 +22,9 @@ export class UserPayloadDto {
 
   @IsNotEmpty()
   roleId: number;
+
+  @IsNotEmpty()
+  profilePicture: string;
 }
 
 export class UpdateUserPayloadDto {

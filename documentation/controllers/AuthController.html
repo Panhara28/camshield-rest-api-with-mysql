@@ -196,8 +196,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/auth/auth.controller.ts:19</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/auth/auth.controller.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -272,8 +272,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="13"
-                                    class="link-to-prism">src/auth/auth.controller.ts:13</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="14"
+                                    class="link-to-prism">src/auth/auth.controller.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -323,10 +323,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Post, Body, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { Controller, Post, Body, Get, UseGuards } from &#x27;@nestjs/common&#x27;;
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { AuthPayloadDto } from &#x27;./dto&#x27;;
-import { User } from &#x27;generated/prisma&#x27;;
+import { User } from &#x27;@prisma/client&#x27;;
 import { GetMe } from &#x27;src/decorators/get-me&#x27;;
 import { JwtGuard } from &#x27;src/guard&#x27;;
 

@@ -53,6 +53,8 @@ export class UsersController {
     return this.usersService.userDetail({ slug });
   }
 
+  @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
+  @HasPermission('edit_user')
   @Patch('/:slug/edit')
   updateUser(
     @Body() payload: UpdateUserPayloadDto,

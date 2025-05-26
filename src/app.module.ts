@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { IsPasswordPolicy } from './validators/password-policy.validation';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
         },
       ],
     }),
+    UploadModule,
   ],
   controllers: [],
   providers: [IsPasswordPolicy],

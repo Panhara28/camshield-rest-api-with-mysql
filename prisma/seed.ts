@@ -29,6 +29,7 @@ async function main() {
       password: DUMMY_PASSWORD,
       roleId: getRandomRoleId(),
       slug: uuidv4(),
+      profilePicture: '',
     };
   });
 

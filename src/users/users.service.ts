@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
   async createUser(payload: UserPayloadDto) {
-    const { email, name, password, roleId } = payload;
+    const { email, name, password, roleId, profilePicture } = payload;
 
     const hashPassword = await argon.hash(password);
 
@@ -25,6 +25,7 @@ export class UsersService {
           password: hashPassword,
           roleId: Number(roleId),
           slug: uuidv4(),
+          profilePicture,
         },
       });
 
