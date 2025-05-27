@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: yourStrongRootPW!  # sets root’s password
       MYSQL_DATABASE:     camshield-databases         # auto-create this DB
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
