@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -5,9 +6,10 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UpdateUserPayloadDto, UserPayloadDto } from './dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon from 'argon2';
-import { UserInterface } from 'src/interfaces/users/user-interfaces';
+import { QueryingUserInterface } from 'src/interfaces/users/user-interfaces';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -45,7 +47,7 @@ export class UsersService {
     }
   }
 
-  async userList({ filter, pagination }: UserInterface) {
+  async userList({ filter, pagination }: QueryingUserInterface) {
     const { limit = 10, page = 1 } = pagination;
     const { email, name, roleId } = filter;
 

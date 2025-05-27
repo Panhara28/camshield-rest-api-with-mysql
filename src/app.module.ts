@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { IsPasswordPolicy } from './validators/password-policy.validation';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UploadModule } from './upload/upload.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UploadModule } from './upload/upload.module';
       ],
     }),
     UploadModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [IsPasswordPolicy],
