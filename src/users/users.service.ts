@@ -62,7 +62,7 @@ export class UsersService {
     }
 
     if (roleId) {
-      where.roleId = roleId;
+      where.roleId = Number(roleId);
     }
 
     const [users, total] = await this.prisma.$transaction([
