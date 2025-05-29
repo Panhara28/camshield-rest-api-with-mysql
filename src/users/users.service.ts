@@ -9,7 +9,6 @@ import * as argon from 'argon2';
 import { QueryingUserInterface } from 'src/interfaces/users/user-interfaces';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { v4 as uuidv4 } from 'uuid';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -105,6 +104,7 @@ export class UsersService {
         email: true,
         role: true,
         slug: true,
+        profilePicture: true,
         updatedAt: true,
         createdAt: true,
       },

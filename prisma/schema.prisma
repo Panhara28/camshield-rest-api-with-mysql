@@ -18,6 +18,7 @@ model User {
   role           Role     @relation(fields: [roleId], references: [id])
   slug           String   @unique
   profilePicture String
+  Media          Media[]
 
   @@index([roleId], map: "users_roleId_fkey")
   @@map("users")
@@ -59,4 +60,41 @@ model RolePermission {
   @@id([roleId, permissionId])
   @@index([permissionId], map: "role_permissions_permissionId_fkey")
   @@map("role_permissions")
+}
+
+model Media {
+  id             String     @id @default(uuid())
+  filename       String // Original file name
+  storedFilename String // Name stored in the server
+  url            String // Public URL or path
+  type           MediaType // Enum: IMAGE, VIDEO, etc.
+  mimetype       String
+  extension      String
+  size           Int // In bytes
+  title          String? // Optional human-readable title
+  altText        String? // Alt text (for images)
+  description    String? // Optional description
+  uploadedById   Int // Reference to User
+  uploadedBy     User       @relation(fields: [uploadedById], references: [id])
+  uploadedAt     DateTime   @default(now())
+  width          Int? // Optional: for images
+  height         Int? // Optional: for images
+  visibility     Visibility @default(PUBLIC) // PUBLIC, PRIVATE, RESTRICTED
+  isDeleted      Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+  OTHER
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+  RESTRICTED
 }

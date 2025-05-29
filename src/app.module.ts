@@ -7,6 +7,8 @@ import { IsPasswordPolicy } from './validators/password-policy.validation';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { UploadModule } from './upload/upload.module';
 import { RolesModule } from './roles/roles.module';
+import { MultipleUploadModule } from './multiple-upload/multiple-upload.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { RolesModule } from './roles/roles.module';
     }),
     UploadModule,
     RolesModule,
+    MultipleUploadModule,
+    MediaModule,
   ],
   controllers: [],
   providers: [IsPasswordPolicy],

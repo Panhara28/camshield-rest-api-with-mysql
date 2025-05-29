@@ -46,4 +46,17 @@ export class AuthService {
 
     return { token };
   }
+
+  async currentUser(slug: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        slug,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    return user;
+  }
 }
