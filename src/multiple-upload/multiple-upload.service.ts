@@ -8,11 +8,6 @@ export class MultipleUploadService {
     private strategy: S3MultipleUploadStrategy,
   ) {}
 
-  uploadFile(folder: string, file: Express.Multer.File): Promise<any> {
-    if (!file) throw new Error('File not found');
-    return this.strategy.upload(folder, file);
-  }
-
   async uploadFiles(
     folder: string,
     files: Express.Multer.File[],

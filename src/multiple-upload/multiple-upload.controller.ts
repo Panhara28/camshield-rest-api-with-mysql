@@ -14,7 +14,9 @@ import { MultipleUploadService } from './multiple-upload.service';
 
 @Controller('upload')
 export class MultipleUploadController {
-  constructor(private readonly uploadService: MultipleUploadService) {}
+  constructor(
+    private readonly multipleMultipleSerivce: MultipleUploadService,
+  ) {}
 
   @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
   @HasPermission('multiple_upload')
@@ -25,6 +27,6 @@ export class MultipleUploadController {
     @UploadedFiles() files: Express.Multer.File[],
   ) {
     const { folder } = params;
-    return this.uploadService.uploadFiles(folder, files);
+    return this.multipleMultipleSerivce.uploadFiles(folder, files);
   }
 }
