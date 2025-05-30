@@ -4,6 +4,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { QueryingMediaInterface } from 'src/interfaces/media/media-interface';
 
 @Injectable()
 export class MediaService {
@@ -48,5 +49,69 @@ export class MediaService {
       }
       throw error;
     }
+  }
+
+  async mediaList({ filter, pagination }: QueryingMediaInterface) {
+    const { limit = 10, page = 1 } = pagination;
+    const {
+      filename,
+      extension,
+      createdAt,
+      mimetype,
+      type,
+      uploadedById,
+      visibility,
+    } = filter;
+
+    const where: any = {};
+
+    if (filename) {
+      where.filename = { contains: filename };
+    }
+
+    if (extension) {
+      where.extension = { contains: extension };
+    }
+
+    if (createdAt) {
+      where.createdAt = { contains: createdAt };
+    }
+
+    if (mimetype) {
+      where.mimetype = { contains: mimetype };
+    }
+
+    if (type) {
+      where.type = { contains: type };
+    }
+
+    if (uploadedById) {
+      where.uploadedByid = { contains: uploadedById };
+    }
+
+    if (visibility) {
+      where.visibility = { contains: visibility };
+    }
+    const [medias, total] = await this.prisma.$transaction([
+      this.prisma.media.findMany({
+        where,
+        skip: (Number(page) - 1) * limit,
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      this.prisma.media.count({ where }),
+    ]);
+
+    return {
+      data: medias,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 }
