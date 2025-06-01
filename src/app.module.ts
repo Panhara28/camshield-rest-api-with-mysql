@@ -9,6 +9,7 @@ import { UploadModule } from './upload/upload.module';
 import { RolesModule } from './roles/roles.module';
 import { MultipleUploadModule } from './multiple-upload/multiple-upload.module';
 import { MediaModule } from './media/media.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { MediaModule } from './media/media.module';
     RolesModule,
     MultipleUploadModule,
     MediaModule,
+    ProductsModule,
   ],
   controllers: [],
   providers: [IsPasswordPolicy],
