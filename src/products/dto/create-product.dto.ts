@@ -1,7 +1,6 @@
 import { Type } from 'class-transformer';
 import {
   IsArray,
-  IsBoolean,
   IsNumber,
   IsOptional,
   IsString,
@@ -31,10 +30,6 @@ export class CreateProductDto {
 
   @IsString()
   vendor: string;
-
-  @IsOptional()
-  @IsBoolean()
-  chargeTax?: boolean;
 
   @IsOptional()
   @IsNumber()
@@ -78,26 +73,10 @@ export class VariantDto {
   @Min(0)
   costPerItem?: number;
 
-  @IsOptional()
-  @IsBoolean()
-  chargeTax?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  continueSellingOOS?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  trackQuantity?: boolean;
-
   @IsNumber()
   @Min(0)
   stock: number;
 
   @IsString()
   sku: string;
-
-  @IsOptional()
-  @IsString()
-  barcode?: string;
 }
