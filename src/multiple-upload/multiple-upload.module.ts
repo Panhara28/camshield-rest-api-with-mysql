@@ -6,6 +6,7 @@ import {
   LocalUploadStrategy,
   S3MultipleUploadStrategy,
 } from 'src/strategy/uploads';
+import { MediaService } from 'src/media/media.service';
 
 @Module({
   imports: [ConfigModule],
@@ -21,6 +22,7 @@ import {
       },
     },
     MultipleUploadService,
+    MediaService,
   ],
   exports: [MultipleUploadService],
 })

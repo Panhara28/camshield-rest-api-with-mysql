@@ -13,7 +13,6 @@ export class MediaService {
   async createMedia(dto: CreateMediaDto | CreateMediaDto[]) {
     try {
       // Handle array of media creation
-
       if (Array.isArray(dto)) {
         const media = await this.prisma.media.createMany({
           data: dto,
