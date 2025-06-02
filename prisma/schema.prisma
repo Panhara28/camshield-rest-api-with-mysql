@@ -83,6 +83,8 @@ model Media {
   isDeleted      Boolean    @default(false)
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+  Product        Product?   @relation(fields: [productId], references: [id])
+  productId      Int?
 }
 
 enum MediaType {
@@ -97,4 +99,39 @@ enum Visibility {
   PUBLIC
   PRIVATE
   RESTRICTED
+}
+
+model Product {
+  id             Int           @id @default(autoincrement())
+  title          String
+  description    Json?
+  media          Media[]
+  category       String
+  type           String
+  vendor         String
+  variants       Variant[]
+  status         ProductStatus @default(ACTIVE)
+  price          Float         @default(0.0)
+  compareAtPrice Float?
+  costPerItem    Float?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Variant {
+  id             Int     @id @default(autoincrement())
+  product        Product @relation(fields: [productId], references: [id])
+  productId      Int
+  size           String
+  color          String
+  price          Float
+  compareAtPrice Float?
+  costPerItem    Float?
+  stock          Int     @default(0)
+  sku            String
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
 }
