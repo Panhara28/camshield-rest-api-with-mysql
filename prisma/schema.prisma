@@ -104,7 +104,7 @@ enum Visibility {
 model Product {
   id             Int           @id @default(autoincrement())
   title          String
-  description    String?
+  description    Json?
   media          Media[]
   category       String
   type           String

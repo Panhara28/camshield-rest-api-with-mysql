@@ -12,33 +12,127 @@ const prisma = new PrismaClient();
 const DUMMY_PASSWORD =
   '$argon2id$v=19$m=65536,t=3,p=4$oTfBlJjwFXLyr8hj8I8LrQ$7vd6LYWLfrzgXSaWiuwXFMkrH6O9t0Jlw+/f4WwyIlQ';
 
-function getRandomRoleId() {
-  return Math.floor(Math.random() * 5) + 1; // Random roleId from 1 to 5
-}
-
 async function main() {
-  const users = Array.from({ length: 50 }).map(() => {
-    const firstName = faker.person.firstName();
-    const lastName = faker.person.lastName();
-    const fullName = `${firstName} ${lastName}`;
-    const email = faker.internet.email({ firstName, lastName }).toLowerCase();
+  // Seed permissions based on image
+  const permissionNames = [
+    'list_user',
+    'view_user',
+    'edit_user',
+    'remove_user',
+    'create_user',
+    'detail_user',
+    'profile_upload_user',
+    'list_role',
+    'multiple_upload',
+    'create_media',
+    'list_media',
+    'create_product',
+  ];
 
-    return {
-      name: fullName,
-      email,
-      password: DUMMY_PASSWORD,
-      roleId: getRandomRoleId(),
-      slug: uuidv4(),
-      profilePicture: '',
-    };
+  const permissions = await Promise.all(
+    permissionNames.map((name, index) =>
+      prisma.permission.upsert({
+        where: { name },
+        update: {},
+        create: {
+          name,
+          slug: `${index + 1}`,
+        },
+      }),
+    ),
+  );
+
+  // Create Roles
+  const adminRole = await prisma.role.create({
+    data: {
+      name: 'Admin',
+      slug: 'admin',
+      permissions: {
+        create: permissions.map((p) => ({
+          permissionId: p.id,
+          slug: `admin-${p.name}`,
+        })),
+      },
+    },
   });
 
-  await prisma.user.createMany({
-    data: users,
-    skipDuplicates: true,
-  });
+  // Create 50 users
+  const users = await Promise.all(
+    Array.from({ length: 50 }).map(() => {
+      return prisma.user.create({
+        data: {
+          email: faker.internet.email(),
+          name: faker.person.fullName(),
+          password: DUMMY_PASSWORD,
+          roleId: adminRole.id,
+          slug: faker.string.uuid(),
+          profilePicture: faker.image.avatar(),
+        },
+      });
+    }),
+  );
 
-  console.log('✅ Seeded 50 fake users with realistic names and emails');
+  // Create 10 products each with 2 variants and 1 media
+  for (let i = 0; i < 10; i++) {
+    const product = await prisma.product.create({
+      data: {
+        title: faker.commerce.productName(),
+        description: { text: faker.commerce.productDescription() },
+        category: faker.commerce.department(),
+        type: faker.commerce.productMaterial(),
+        vendor: faker.company.name(),
+        price: Number(faker.commerce.price()),
+        compareAtPrice: Number(faker.commerce.price()),
+        costPerItem: Number(faker.commerce.price()),
+      },
+    });
+
+    await prisma.variant.createMany({
+      data: [
+        {
+          productId: product.id,
+          size: 'M',
+          color: 'Red',
+          price: 99.99,
+          compareAtPrice: 129.99,
+          costPerItem: 49.99,
+          stock: 10,
+          sku: faker.string.alphanumeric(8),
+        },
+        {
+          productId: product.id,
+          size: 'L',
+          color: 'Blue',
+          price: 109.99,
+          compareAtPrice: 139.99,
+          costPerItem: 59.99,
+          stock: 15,
+          sku: faker.string.alphanumeric(8),
+        },
+      ],
+    });
+
+    await prisma.media.create({
+      data: {
+        id: uuidv4(),
+        filename: 'product.jpg',
+        storedFilename: `${uuidv4()}.jpg`,
+        url: faker.image.url(),
+        type: 'IMAGE',
+        mimetype: 'image/jpeg',
+        extension: 'jpg',
+        size: 200000,
+        title: 'Product Image',
+        uploadedById: users[Math.floor(Math.random() * users.length)].id,
+        altText: 'Product image alt text',
+        description: 'This is a test image for product.',
+        width: 800,
+        height: 600,
+        visibility: 'PUBLIC',
+        productId: product.id,
+      },
+    });
+  }
 }
 
 main()
