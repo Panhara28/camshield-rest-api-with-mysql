@@ -54,6 +54,9 @@ export class CreateProductDto {
 
 export class VariantDto {
   @IsString()
+  imageVariant: string;
+
+  @IsString()
   size: string;
 
   @IsString()

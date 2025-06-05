@@ -134,6 +134,7 @@ model Variant {
   costPerItem    Float?
   stock          Int     @default(0)
   sku            String
+  imageVariant   String
 
   @@map("varaints")
 }

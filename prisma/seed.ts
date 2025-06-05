@@ -98,6 +98,7 @@ async function main() {
           costPerItem: 49.99,
           stock: 10,
           sku: faker.string.alphanumeric(8),
+          imageVariant: '',
         },
         {
           productId: product.id,
@@ -108,6 +109,7 @@ async function main() {
           costPerItem: 59.99,
           stock: 15,
           sku: faker.string.alphanumeric(8),
+          imageVariant: '',
         },
       ],
     });
