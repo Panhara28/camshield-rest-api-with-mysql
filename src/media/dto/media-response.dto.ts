@@ -20,4 +20,5 @@ export class MediaResponseDto {
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
+  productId: any[];
 }

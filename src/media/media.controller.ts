@@ -1,11 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { MediaService } from './media.service';
 import { JwtGuard } from 'src/guard';
 import { OnlyAuthorizedRoleGuard } from 'src/guard/only-authorized-role/only-authorized-role.guard';
 import { HasPermission } from 'src/decorators/has-permission/has-permission.decorator';
 import { CreateMediaDto } from './dto/create-media.dto';
+import { UpdateMediaDto } from './dto/update-media.dto';
 
 @Controller('media')
 export class MediaController {
@@ -47,5 +57,12 @@ export class MediaController {
         page,
       },
     });
+  }
+
+  @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
+  @HasPermission('update_media')
+  @Patch('update/:id')
+  updateMedia(@Param('id') id: string, @Body() dto: UpdateMediaDto) {
+    return this.mediaService.updateMediaById(id, dto);
   }
 }

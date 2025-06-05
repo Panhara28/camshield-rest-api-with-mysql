@@ -104,20 +104,21 @@ enum Visibility {
 }
 
 model Product {
-  id             Int           @id @default(autoincrement())
-  title          String
-  description    Json?
-  media          Media[]
-  category       String
-  type           String
-  vendor         String
-  variants       Variant[]
-  status         ProductStatus @default(ACTIVE)
-  price          Float         @default(0.0)
-  compareAtPrice Float?
-  costPerItem    Float?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  description         Json?
+  media               Media[]
+  category            String
+  type                String
+  vendor              String
+  variants            Variant[]
+  status              ProductStatus         @default(ACTIVE)
+  price               Float                 @default(0.0)
+  compareAtPrice      Float?
+  costPerItem         Float?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  MediaProductDetails MediaProductDetails[]
 
   @@map("products")
 }
@@ -140,4 +141,16 @@ model Variant {
 enum ProductStatus {
   ACTIVE
   INACTIVE
+}
+
+model MediaProductDetails {
+  id        String  @id @default(uuid())
+  url       String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("media_product_details")
 }

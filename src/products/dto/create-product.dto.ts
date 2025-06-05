@@ -7,6 +7,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
+import { MediaResponseDto } from 'src/media/dto/media-response.dto';
 // import { MediaResponseDto } from 'src/media/dto/media-response.dto';
 
 export class CreateProductDto {
@@ -17,10 +18,9 @@ export class CreateProductDto {
   @IsString()
   description?: string;
 
-  //   @IsArray()
-  //   @ValidateNested({ each: true })
-  //   @Type(() => MediaResponseDto)
-  //   mediaUrls: MediaResponseDto[];
+  @IsArray()
+  @Type(() => MediaResponseDto)
+  mediaUrls: MediaResponseDto[];
 
   @IsString()
   category: string;

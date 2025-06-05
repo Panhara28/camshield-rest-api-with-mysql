@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateMediaDto } from './dto/create-media.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { QueryingMediaInterface } from 'src/interfaces/media/media-interface';
+import { UpdateMediaDto } from './dto/update-media.dto';
 
 @Injectable()
 export class MediaService {
@@ -112,5 +113,38 @@ export class MediaService {
         totalPages: Math.ceil(total / limit),
       },
     };
+  }
+
+  async updateMediaById(id: string, dto: UpdateMediaDto) {
+    try {
+      // First, check if the media exists
+      const existingMedia = await this.prisma.media.findUnique({
+        where: { id },
+      });
+
+      if (!existingMedia) {
+        throw new ForbiddenException(`Media with ID ${id} not found`);
+      }
+
+      // Proceed with update
+      const updatedMedia = await this.prisma.media.update({
+        where: { id },
+        data: dto,
+      });
+
+      return {
+        success: true,
+        data: updatedMedia,
+      };
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException(
+            `Update failed due to a unique constraint.`,
+          );
+        }
+      }
+      throw error;
+    }
   }
 }

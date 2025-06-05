@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -10,8 +12,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
-  createProduct(payload: CreateProductDto) {
-    return this.prisma.product.create({
+  async createProduct(payload: CreateProductDto) {
+    const createdProduct = await this.prisma.product.create({
       data: {
         title: payload.title,
         description: payload.description,
@@ -26,6 +28,18 @@ export class ProductsService {
         },
       },
     });
+
+    if (payload.mediaUrls?.length) {
+      await this.prisma.mediaProductDetails.createMany({
+        data: payload.mediaUrls.map((media) => ({
+          id: media.id, // assuming UUID is provided
+          url: media.url,
+          productId: createdProduct.id,
+        })),
+      });
+    }
+
+    return createdProduct;
   }
 
   productList() {
