@@ -51,7 +51,7 @@ export class MediaService {
   }
 
   async mediaList({ filter, pagination }: QueryingMediaInterface) {
-    const { limit = 10, page = 1 } = pagination;
+    const { limit = 40, page = 1 } = pagination;
     const {
       filename,
       extension,

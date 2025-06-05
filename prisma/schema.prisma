@@ -85,6 +85,8 @@ model Media {
   updatedAt      DateTime   @updatedAt
   Product        Product?   @relation(fields: [productId], references: [id])
   productId      Int?
+
+  @@map("medias")
 }
 
 enum MediaType {
@@ -116,6 +118,8 @@ model Product {
   costPerItem    Float?
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
+
+  @@map("products")
 }
 
 model Variant {
@@ -129,6 +133,8 @@ model Variant {
   costPerItem    Float?
   stock          Int     @default(0)
   sku            String
+
+  @@map("varaints")
 }
 
 enum ProductStatus {
