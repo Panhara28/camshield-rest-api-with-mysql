@@ -16,7 +16,7 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   role           Role     @relation(fields: [roleId], references: [id])
-  slug           String   @unique
+  slug           String   @unique @default(uuid())
   profilePicture String
   Media          Media[]
 
@@ -31,7 +31,7 @@ model Role {
   updatedAt   DateTime         @updatedAt
   permissions RolePermission[]
   users       User[]
-  slug        String           @unique
+  slug        String           @unique @default(uuid())
 
   @@map("roles")
 }
@@ -43,7 +43,7 @@ model Permission {
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
   roles       RolePermission[]
-  slug        String           @unique
+  slug        String           @unique @default(uuid())
 
   @@map("permissions")
 }
@@ -55,7 +55,7 @@ model RolePermission {
   updatedAt    DateTime   @updatedAt
   permission   Permission @relation(fields: [permissionId], references: [id])
   role         Role       @relation(fields: [roleId], references: [id])
-  slug         String     @unique
+  slug         String     @unique @default(uuid())
 
   @@id([roleId, permissionId])
   @@index([permissionId], map: "role_permissions_permissionId_fkey")
@@ -63,7 +63,8 @@ model RolePermission {
 }
 
 model Media {
-  id             String     @id @default(uuid())
+  id             Int        @id @default(autoincrement())
+  slug           String     @unique @default(uuid())
   filename       String // Original file name
   storedFilename String // Name stored in the server
   url            String // Public URL or path
@@ -105,10 +106,10 @@ enum Visibility {
 
 model Product {
   id                  Int                   @id @default(autoincrement())
+  slug                String                @unique @default(uuid())
   title               String
   description         Json?
   media               Media[]
-  category            String
   type                String
   vendor              String
   variants            Variant[]
@@ -120,16 +121,16 @@ model Product {
   updatedAt           DateTime              @updatedAt
   MediaProductDetails MediaProductDetails[]
   Category            Category?             @relation(fields: [categoryId], references: [id])
-  categoryId          String?
+  categoryId          Int? // <-- changed from String? to Int?
 
   @@map("products")
 }
 
 model Category {
-  id        String     @id @default(cuid())
+  id        Int        @id @default(autoincrement())
   name      String
-  slug      String     @unique
-  parentId  String?
+  slug      String     @unique @default(uuid())
+  parentId  Int? // <-- fixed type to match `id`
   parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children  Category[] @relation("CategoryHierarchy")
   products  Product[] // ← relationship to Product
@@ -152,6 +153,7 @@ model Variant {
   stock          Int     @default(0)
   sku            String
   imageVariant   String
+  slug           String  @unique @default(uuid())
 
   @@map("varaints")
 }
@@ -162,11 +164,11 @@ enum ProductStatus {
 }
 
 model MediaProductDetails {
-  id        String  @id @default(uuid())
+  id        String   @id @default(uuid())
   url       String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int
-
+  slug      String   @unique @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

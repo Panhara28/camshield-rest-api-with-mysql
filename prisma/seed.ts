@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { v4 as uuidv4 } from 'uuid';
 
-import { PrismaClient } from '@prisma/client';
+import { Category, PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
@@ -13,6 +13,32 @@ const DUMMY_PASSWORD =
   '$argon2id$v=19$m=65536,t=3,p=4$oTfBlJjwFXLyr8hj8I8LrQ$7vd6LYWLfrzgXSaWiuwXFMkrH6O9t0Jlw+/f4WwyIlQ';
 
 async function main() {
+  // Create 3 top-level categories
+  const parentCategories: Category[] = [];
+
+  for (let i = 0; i < 3; i++) {
+    const parent: Category = await prisma.category.create({
+      data: {
+        name: faker.commerce.department(),
+      },
+    });
+
+    parentCategories.push(parent);
+  }
+
+  // Create 2 subcategories for each parent
+  for (const parent of parentCategories) {
+    for (let i = 0; i < 2; i++) {
+      await prisma.category.create({
+        data: {
+          name:
+            faker.commerce.productAdjective() + ' ' + faker.commerce.product(),
+          parentId: parent.id,
+        },
+      });
+    }
+  }
+
   // Seed permissions based on image
   const permissionNames = [
     'list_user',
@@ -27,16 +53,17 @@ async function main() {
     'create_media',
     'list_media',
     'create_product',
+    'category_list',
   ];
 
   const permissions = await Promise.all(
-    permissionNames.map((name, index) =>
+    permissionNames.map((name) =>
       prisma.permission.upsert({
         where: { name },
         update: {},
         create: {
           name,
-          slug: `${index + 1}`,
+          slug: faker.string.uuid(),
         },
       }),
     ),
@@ -50,7 +77,7 @@ async function main() {
       permissions: {
         create: permissions.map((p) => ({
           permissionId: p.id,
-          slug: `admin-${p.name}`,
+          slug: faker.string.uuid(),
         })),
       },
     },
@@ -78,12 +105,13 @@ async function main() {
       data: {
         title: faker.commerce.productName(),
         description: { text: faker.commerce.productDescription() },
-        category: faker.commerce.department(),
         type: faker.commerce.productMaterial(),
         vendor: faker.company.name(),
         price: Number(faker.commerce.price()),
         compareAtPrice: Number(faker.commerce.price()),
         costPerItem: Number(faker.commerce.price()),
+        slug: faker.string.uuid(),
+        categoryId: 1,
       },
     });
 
@@ -99,6 +127,7 @@ async function main() {
           stock: 10,
           sku: faker.string.alphanumeric(8),
           imageVariant: '',
+          slug: faker.string.uuid(),
         },
         {
           productId: product.id,
@@ -110,13 +139,13 @@ async function main() {
           stock: 15,
           sku: faker.string.alphanumeric(8),
           imageVariant: '',
+          slug: faker.string.uuid(),
         },
       ],
     });
 
     await prisma.media.create({
       data: {
-        id: uuidv4(),
         filename: 'product.jpg',
         storedFilename: `${uuidv4()}.jpg`,
         url: faker.image.url(),
@@ -132,6 +161,7 @@ async function main() {
         height: 600,
         visibility: 'PUBLIC',
         productId: product.id,
+        slug: faker.string.uuid(),
       },
     });
   }
