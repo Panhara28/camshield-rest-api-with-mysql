@@ -119,8 +119,25 @@ model Product {
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   MediaProductDetails MediaProductDetails[]
+  Category            Category?             @relation(fields: [categoryId], references: [id])
+  categoryId          String?
 
   @@map("products")
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  parentId  String?
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryHierarchy")
+  products  Product[] // ← relationship to Product
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([parentId])
+  @@map("categories")
 }
 
 model Variant {

@@ -7,6 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProductsService {
@@ -17,8 +18,9 @@ export class ProductsService {
       data: {
         title: payload.title,
         description: payload.description,
-        category: payload.category,
-        type: payload.type,
+        categoryId: payload.categoryId,
+        category: payload.categoryId,
+        type: payload.type || '',
         vendor: payload.vendor,
         price: payload.price ?? 0,
         compareAtPrice: payload.compareAtPrice,
@@ -32,7 +34,7 @@ export class ProductsService {
     if (payload.mediaUrls?.length) {
       await this.prisma.mediaProductDetails.createMany({
         data: payload.mediaUrls.map((media) => ({
-          id: media.id, // assuming UUID is provided
+          id: uuidv4(), // assuming UUID is provided
           url: media.url,
           productId: createdProduct.id,
         })),
@@ -55,7 +57,7 @@ export class ProductsService {
         data: {
           title: data.title,
           description: data.description,
-          category: data.category,
+          category: data.categoryId,
           type: data.type,
           vendor: data.vendor,
           price: data.price,

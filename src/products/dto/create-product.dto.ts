@@ -23,7 +23,8 @@ export class CreateProductDto {
   mediaUrls: MediaResponseDto[];
 
   @IsString()
-  category: string;
+  @IsOptional()
+  categoryId: string;
 
   @IsString()
   type: string;
