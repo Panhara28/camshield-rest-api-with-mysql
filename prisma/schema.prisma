@@ -164,7 +164,7 @@ enum ProductStatus {
 }
 
 model MediaProductDetails {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   url       String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId Int

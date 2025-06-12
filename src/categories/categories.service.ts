@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getCategoryTree(parentId: string | null = null): Promise<any[]> {
+  async getCategoryTree(parentId: number | null = null): Promise<any[]> {
     const categories = await this.prisma.category.findMany({
       where: { parentId },
       orderBy: { name: 'asc' },

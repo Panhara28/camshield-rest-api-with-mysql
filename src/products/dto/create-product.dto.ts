@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   IsArray,
+  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
@@ -22,9 +23,9 @@ export class CreateProductDto {
   @Type(() => MediaResponseDto)
   mediaUrls: MediaResponseDto[];
 
-  @IsString()
-  @IsOptional()
-  categoryId: string;
+  @IsNumber()
+  @IsNotEmpty()
+  categoryId: number;
 
   @IsString()
   type: string;

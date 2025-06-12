@@ -7,7 +7,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProductsService {
@@ -18,8 +17,7 @@ export class ProductsService {
       data: {
         title: payload.title,
         description: payload.description,
-        categoryId: payload.categoryId,
-        category: payload.categoryId,
+        categoryId: Number(payload.categoryId),
         type: payload.type || '',
         vendor: payload.vendor,
         price: payload.price ?? 0,
@@ -34,7 +32,6 @@ export class ProductsService {
     if (payload.mediaUrls?.length) {
       await this.prisma.mediaProductDetails.createMany({
         data: payload.mediaUrls.map((media) => ({
-          id: uuidv4(), // assuming UUID is provided
           url: media.url,
           productId: createdProduct.id,
         })),
@@ -50,6 +47,16 @@ export class ProductsService {
     });
   }
 
+  async productDetail(slug: string) {
+    return this.prisma.product.findUnique({
+      where: { slug },
+      include: {
+        variants: true,
+        MediaProductDetails: true,
+      },
+    });
+  }
+
   async update(id: number, data: UpdateProductDto) {
     return this.prisma.$transaction(async (tx) => {
       const updatedProduct = await tx.product.update({
@@ -57,7 +64,7 @@ export class ProductsService {
         data: {
           title: data.title,
           description: data.description,
-          category: data.categoryId,
+          categoryId: Number(data.categoryId),
           type: data.type,
           vendor: data.vendor,
           price: data.price,

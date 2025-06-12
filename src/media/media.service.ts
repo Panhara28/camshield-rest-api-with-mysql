@@ -115,7 +115,7 @@ export class MediaService {
     };
   }
 
-  async updateMediaById(id: string, dto: UpdateMediaDto) {
+  async updateMediaById(id: number, dto: UpdateMediaDto) {
     try {
       // First, check if the media exists
       const existingMedia = await this.prisma.media.findUnique({

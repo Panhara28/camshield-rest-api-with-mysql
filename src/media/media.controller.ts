@@ -62,7 +62,7 @@ export class MediaController {
   @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
   @HasPermission('update_media')
   @Patch('update/:id')
-  updateMedia(@Param('id') id: string, @Body() dto: UpdateMediaDto) {
+  updateMedia(@Param('id') id: number, @Body() dto: UpdateMediaDto) {
     return this.mediaService.updateMediaById(id, dto);
   }
 }

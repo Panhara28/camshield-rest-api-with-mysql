@@ -54,6 +54,7 @@ async function main() {
     'list_media',
     'create_product',
     'category_list',
+    'product_detail',
   ];
 
   const permissions = await Promise.all(
