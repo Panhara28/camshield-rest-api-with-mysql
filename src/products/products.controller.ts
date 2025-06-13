@@ -58,4 +58,14 @@ export class ProductsController {
 
     return updated;
   }
+
+  @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
+  @HasPermission('by-product')
+  @Get('by-product/:productId')
+  async getMediaByProduct(@Param('productId') productId: string) {
+    const result = await this.productsService.getMediaByProduct(
+      Number(productId),
+    );
+    return result;
+  }
 }

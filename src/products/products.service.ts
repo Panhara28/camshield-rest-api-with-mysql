@@ -41,6 +41,14 @@ export class ProductsService {
     return createdProduct;
   }
 
+  async getMediaByProduct(productId: number) {
+    const media = await this.prisma.mediaProductDetails.findMany({
+      where: { productId: Number(productId) },
+    });
+
+    return { data: media };
+  }
+
   productList() {
     return this.prisma.product.findMany({
       include: { media: true, variants: true },
