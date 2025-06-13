@@ -57,34 +57,52 @@ export class ProductsService {
     });
   }
 
-  async update(id: number, data: UpdateProductDto) {
+  async updateProduct(slug: string, data: UpdateProductDto) {
     return this.prisma.$transaction(async (tx) => {
+      // 1. Update base product fields
       const updatedProduct = await tx.product.update({
-        where: { id },
+        where: { slug },
         data: {
           title: data.title,
           description: data.description,
           categoryId: Number(data.categoryId),
           type: data.type,
           vendor: data.vendor,
-          price: data.price,
+          price: data.price ?? 0,
           compareAtPrice: data.compareAtPrice,
           costPerItem: data.costPerItem,
         },
       });
 
-      // if (data.mediaUrls) {
-      //   await tx.media.deleteMany({ where: { productId: id } });
-      //   await tx.media.createMany({
-      //     data: data.mediaUrls,
-      //   });
-      // }
-
-      if (data.variants) {
-        await tx.variant.deleteMany({ where: { productId: id } });
-        await tx.variant.createMany({
-          data: data.variants.map((v) => ({ ...v, productId: id })),
+      // 2. Replace variants
+      if (data.variants?.length) {
+        await tx.variant.deleteMany({
+          where: { productId: updatedProduct.id },
         });
+        await tx.variant.createMany({
+          data: data.variants.map((v) => ({
+            ...v,
+            productId: updatedProduct.id,
+          })),
+        });
+      }
+
+      // 3. Replace MediaProductDetails
+      if (data.mediaUrls) {
+        // 1. Always delete old
+        await tx.mediaProductDetails.deleteMany({
+          where: { productId: updatedProduct.id },
+        });
+
+        // 2. Conditionally insert new
+        if (data.mediaUrls.length > 0) {
+          await tx.mediaProductDetails.createMany({
+            data: data.mediaUrls.map((media) => ({
+              url: media.url,
+              productId: updatedProduct.id,
+            })),
+          });
+        }
       }
 
       return updatedProduct;

@@ -7,8 +7,10 @@ import {
   Param,
   Get,
   ForbiddenException,
+  Patch,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { HasPermission } from 'src/decorators/has-permission/has-permission.decorator';
 import { JwtGuard } from 'src/guard';
 import { OnlyAuthorizedRoleGuard } from 'src/guard/only-authorized-role/only-authorized-role.guard';
@@ -36,5 +38,24 @@ export class ProductsController {
     }
 
     return product;
+  }
+
+  @UseGuards(JwtGuard, OnlyAuthorizedRoleGuard)
+  @HasPermission('update_product')
+  @Patch('update/:slug')
+  async updateProduct(
+    @Param('slug') slug: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
+    const updated = await this.productsService.updateProduct(
+      slug,
+      updateProductDto,
+    );
+
+    if (!updated) {
+      throw new ForbiddenException('Failed to update product');
+    }
+
+    return updated;
   }
 }
