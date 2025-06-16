@@ -90,6 +90,9 @@ export class ProductsService {
         await tx.variant.createMany({
           data: data.variants.map((v) => ({
             ...v,
+            size: v?.size ? v?.size : '',
+            color: v?.color ? v?.color : '',
+            material: v?.material ? v?.material : '',
             productId: updatedProduct.id,
           })),
         });

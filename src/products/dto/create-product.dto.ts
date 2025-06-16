@@ -59,10 +59,16 @@ export class VariantDto {
   imageVariant: string;
 
   @IsString()
+  @IsOptional()
   size: string;
 
   @IsString()
+  @IsOptional()
   color: string;
+
+  @IsString()
+  @IsOptional()
+  material: string;
 
   @IsNumber()
   @Min(0)
@@ -73,9 +79,9 @@ export class VariantDto {
   @Min(0)
   compareAtPrice?: number;
 
-  @IsOptional()
   @IsNumber()
   @Min(0)
+  @IsOptional()
   costPerItem?: number;
 
   @IsNumber()

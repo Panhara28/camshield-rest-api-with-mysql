@@ -147,6 +147,7 @@ model Variant {
   productId      Int
   size           String
   color          String
+  material       String  @default("")
   price          Float
   compareAtPrice Float?
   costPerItem    Float?
