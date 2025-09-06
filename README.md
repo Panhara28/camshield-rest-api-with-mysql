@@ -96,3 +96,90 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Installation Guidelines
+
+Before running the project, make sure you have the following prerequisites installed:
+
+- [Node.js](https://nodejs.org/) (recommended version: 18.x or above)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [MySQL](https://www.mysql.com/) (for local development, or use Docker)
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-repository-url>
+cd camshield-rest-api-with-mysql
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+This will install all required packages listed in [`package.json`](package.json).
+
+### 3. Environment Variables
+
+Copy the example environment file and update values as needed:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` to set your database connection string and other secrets.
+
+### 4. Set Up the Database
+
+#### Using Docker (Recommended)
+
+Start MySQL using Docker Compose:
+
+```bash
+docker-compose up -d
+```
+
+#### Or Install MySQL Locally
+
+Make sure your MySQL server is running and accessible.
+
+### 5. Prisma Setup
+
+Generate Prisma client and run migrations:
+
+```bash
+npx prisma generate
+npx prisma migrate deploy
+```
+
+(Optional) Seed the database:
+
+```bash
+npx ts-node prisma/seed.ts
+```
+
+### 6. Start the Application
+
+#### Development
+
+```bash
+npm run start:dev
+```
+
+#### Production
+
+```bash
+npm run build
+npm run start:prod
+```
+
+### 7. Run Tests
+
+```bash
+npm run test
+```
+
+---
+
+For more details, see the [README.md](README.md) and [NestJS Documentation](https://docs.nestjs.com)
